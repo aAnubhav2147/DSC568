@@ -14,7 +14,7 @@ umassdgithub/Fall2021-Week-5-Monday/.../Styling_plot.html
 <ol>
 <li>Use d3.line() generator to calculate attribute "d" for "path" element</li>
 <li>Make use of scaleLinear and scaleTime function</li>
-<li>Give a different color foreach line</li>
+<li>Give a different color for each line</li>
 </ol>
 <br>
 
