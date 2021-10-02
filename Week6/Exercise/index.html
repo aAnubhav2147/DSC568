@@ -73,6 +73,7 @@ loadData.then(data => {
 let x = d3.scaleTime()
     .domain(d3.extent(data, function(d) { return d.date; }))
     .range([margins, width]);
+    
 let y1 = d3.scaleLinear()
     .domain([0, d3.max(data, function(d) { return d.yearly_storage; })])
     .range([height, margins]);
