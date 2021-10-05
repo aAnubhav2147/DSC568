@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 - Map</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <style>
+        .tooltipData{
+            font-size: small;
+        }
+        #tooltip{
+            opacity: 0;
+            background-color: antiquewhite;
+            position: absolute;
+            width: 150px;
+            height: 60px;
+        }
+
+        #caption{
+            margin: auto;
+            padding-top: 1%;
+            padding-bottom: 1%;
+            padding-left: 4%;
+            font-family: serif;
+            font-size: 20pt;
+        }
+        #container
+        {
+            width: 90vw;
+            height: 80vh;
+        }
+        #canvas
+        {
+            width: 90vw;
+            height: 80vh;
+            background-color: azure;
+        }
+        path.path_geo{
+            stroke-width: .5px;
+            stroke: black;
+        }
+    </style>
+</head>
+<body>
+<div id="caption">
+    US COVID-19 Cases by County.
+</div>
+
+
+<div id="container">
+    <svg id="canvas" viewBox="0 0 1000 800">
+    </svg>
+</div>
+<div id="tooltip"></div>
+<script>
+    // select the svg element
+    let svg = d3.select('svg');
+    // load the data sources:
+    // Source 1: NY times COVID-19 Data (live)
+    let covid19="https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv";
+    // source 2: US Census Counties geojson
+    let geojson = "data/us_counties_topo.json";
+    let projection = d3.geoAlbersUsa()
+                        .scale(1300).translate([500, 400])
+    Promise.all(
+        [
+            d3.json(geojson),
+            d3.csv(covid19)],d3.autoType()).then(main)
+
+
+    function main(data){
+
+        let geoJson = topojson.feature(data[0],data[0].objects.cb_2018_us_county_20m).features;
+        let geo_generator = d3.geoPath().projection(projection);
+        let covid_data = d3.group(data[1],function(d){return d.fips;}); // groups of fips
+        let cases_extent = d3.extent(data[1],function (d){
+            return +d.cases
+        })
+        cases_extent[0]=1
+        let colorScale = d3.scaleLog()
+            .domain(cases_extent)
+            .range(["white","steelblue"])
+            .interpolate(d3.interpolateCubehelix.gamma(1));
+        let mapCanvas = svg.append('g')
+        mapCanvas.selectAll('path')
+        .data(geoJson)
+        .enter()
+        .append('path')
+        .attr("class","path_geo")
+        .attr("d",geo_generator)
+        .attr("fill","white")
+        .on("mousemove",function (mouseData,d){
+            d3.select('#tooltip')
+                .style("opacity",.8)
+                .style("left",(mouseData.clientX+10).toString()+"px")
+                .style("top",(mouseData.clientY+10).toString()+"px")
+                .html(
+                    "<div class='tooltipData'>County: "+covid_data.get(d.properties.GEOID)[0].county+"</div>" +
+                    "<div class='tooltipData'>State: "+covid_data.get(d.properties.GEOID)[0].state+"</div>" +
+                    "<div class='tooltipData' style='color:blue'>Cases: "+covid_data.get(d.properties.GEOID)[0].cases.toString()+"</div>" +
+                    "<div class='tooltipData' style='color:red'>Deaths: "+covid_data.get(d.properties.GEOID)[0].deaths.toString()+"</div>" +
+                    "<div class='tooltipData'></div>")
+        })
+        .transition()
+        .delay(function (d,i){return i*2})
+        .duration(800)
+        .style("fill",function (d){
+            try{
+                return colorScale(parseInt(covid_data.get(d.properties.GEOID)[0].cases));
+            }
+            catch (error)
+            {
+                return "white"
+            }
+        })
+    svg.call(d3.zoom()
+        .extent([[0,0],[1000,800]])
+        .scaleExtent([1,8])
+        .on("zoom",zoomed)
+    )
+    function zoomed({transform}){
+        mapCanvas.attr("transform",transform)
+    }
+    }
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
