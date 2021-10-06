@@ -3,8 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>US COVID-19 State Cases</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <style>
+        .tooltipData{
+            font-size: small;
+        }
+        #tooltip{
+            opacity: 0;
+            background-color: rgba(250, 235, 215, 0.76);
+            position: absolute;
+            width: 150px;
+            height: 60px;
+        }
+
+        #cap1{
+            margin: auto;
+            padding-top: 1%;
+            padding-bottom: 1%;
+            padding-left: 4%;
+            font-family: serif;
+            font-size: 20pt;
+        }
+        #container
+        {
+            width: 90vw;
+            height: 80vh;
+        }
+        #canvas
+        {
+            width: 90vw;
+            height: 80vh;
+            background-color: rgba(241, 240, 255, 0.247);
+        }
+        path.path_geo{
+            stroke-width: .5px;
+            stroke: black;
+        }
+    </style>
 </head>
 <body>
+<div id="cap1">
+        US COVID-19 Cases by County.
+</div>
+
+<div id = "container">
+    <svg id = "canvas" viewBox = "0 0 1200 1000">   
+    </svg>
+</div>
+
+<div id = "tooltip"></div>
+
+<script>
+    //Step 1 -> Select and import the svg element
+    let svg = d3.select('svg');
+
+    //Step 2 -> Load the respective data sources
+
+    //Source 1 -> Import the data from NYT GitHub source
+    let nyt_cov19live = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv";
+
+    //Source 2 -> Get the US county level data
+    /* We will be using TopoJSON for this exercise */
+    let topojson = "data/us_counties_topo.json";
+    let projection = d3.topoAlbersUsa().scale(1300).translate([500,400])
+    Promise.all(
+        [
+            d3.json(topojson),
+            d3.csv(nyt_cov19live)
+        ],d3.autoType()
+    ).then(main)
+
+    
+
+</script>
 
 </body>
 </html>
