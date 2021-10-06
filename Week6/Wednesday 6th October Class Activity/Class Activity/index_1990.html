@@ -76,6 +76,7 @@
             // if topojson file is imported we need to 
             // convert topology data to geojson 
             const geojson = topojson.feature(topo_data, topo_data.objects.ma);
+            console.log('Done!');
 
             /*-------------------------------------------------------*/
             /*----------------------Projections----------------------*/
@@ -107,13 +108,13 @@
                 // if the data is scaled using log scale
             let logScale = d3.scaleLog()
                 .domain(d3.extent(geojson.features, (d) => {
-                    return d['properties']['POP1980']
+                    return d['properties']['POPCH90_00']
                 }))
 
             // if the data is scaled using linear scale
             let linearScale = d3.scaleLinear()
                 .domain(d3.extent(geojson.features, (d) => {
-                    return d['properties']['POPCH80_90']
+                    return d['properties']['POPCH90_00']
                 }))
 
             /*-------------------------------------------------------*/
@@ -136,7 +137,7 @@
                 .append("path")
                 .attr("d", d => geoPath_generator(d))
                 //.attr("fill", d => colorInterpolator(logScale(d['properties']['POP2010'])))
-                .attr("fill", d => colorInterpolator(linearScale(d['properties']['POPCH80_90','POPCH90_00','POPCH00_10'])))
+                .attr("fill", d => colorInterpolator(linearScale(d['properties']['POPCH90_00'])))
                 .on("mouseenter", (m, d) => {
                     tooltip.transition()
                         .duration(200)

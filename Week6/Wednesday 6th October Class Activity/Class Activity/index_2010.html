@@ -22,6 +22,61 @@
             border-radius: 2px;
             line-height: 1;
         }
+        .c25027{
+            fill:rgb(26, 150, 53)
+        }
+
+        .c25003{
+            fill:indigo
+        }
+
+        .c25011{
+            fill:seagreen
+        }
+
+        .c25015{
+            fill:purple
+        }
+
+        .c25013{
+            fill:violet
+        }
+
+        .c25017{
+            fill: brown
+        }
+
+        .c25021{
+            fill:green
+        }
+
+        .c25009{
+            fill: yellow
+        }
+
+        .c25025{
+            fill: aqua
+        }
+
+        .c25005{
+            fill: slategray
+        }
+
+        .c25023{
+            fill:black
+        }
+
+        .c25001{
+            fill:blueviolet
+        }
+
+        .c25019{
+            fill:blue
+        }
+
+        .c25007{
+            fill:red
+        }
         
         path {
             stroke-width: .5px;
@@ -76,6 +131,7 @@
             // if topojson file is imported we need to 
             // convert topology data to geojson 
             const geojson = topojson.feature(topo_data, topo_data.objects.ma);
+            console.log('Done!');
 
             /*-------------------------------------------------------*/
             /*----------------------Projections----------------------*/
@@ -107,13 +163,13 @@
                 // if the data is scaled using log scale
             let logScale = d3.scaleLog()
                 .domain(d3.extent(geojson.features, (d) => {
-                    return d['properties']['POP1980']
+                    return d['properties']['POPCH00_10']
                 }))
 
             // if the data is scaled using linear scale
             let linearScale = d3.scaleLinear()
                 .domain(d3.extent(geojson.features, (d) => {
-                    return d['properties']['POPCH80_90']
+                    return d['properties']['POPCH00_10']
                 }))
 
             /*-------------------------------------------------------*/
@@ -129,6 +185,10 @@
             let svg = d3.select("body").append("svg")
                 .attr("width", "100vw")
                 .attr("height", "100vh");
+             
+            let lst =geojson.features.map(d=>d['properties']['FIPS_STCO']); 
+            lst = new Set(lst)
+            console.log(lst)
 
             svg.selectAll("path")
                 .data(geojson.features)
@@ -136,7 +196,9 @@
                 .append("path")
                 .attr("d", d => geoPath_generator(d))
                 //.attr("fill", d => colorInterpolator(logScale(d['properties']['POP2010'])))
-                .attr("fill", d => colorInterpolator(linearScale(d['properties']['POPCH80_90','POPCH90_00','POPCH00_10'])))
+                .attr("fill","none")
+                .attr("class",d => {return `c${d.properties.FIPS_STCO}`})
+                // .style("fill", d => colorInterpolator(linearScale(d['properties']['POPCH00_10'])))
                 .on("mouseenter", (m, d) => {
                     tooltip.transition()
                         .duration(200)
