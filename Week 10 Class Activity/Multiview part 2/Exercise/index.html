@@ -6,6 +6,7 @@
     <!--Link the barplot and scatter plot to HTML file-->
     <script src="scatterplot.js?2"></script>
     <script src="barplot.js?2"></script>
+    <script src="slider.css"></script>
 
     <link rel="stylesheet" href="../styles/style.css" />
     <style>
@@ -273,13 +274,18 @@
       }
 
       /// control
-      d3.selectAll(".rngSlider").on("input",function(d){
-        BarChart(svg,
-            d3.select("#bins")._groups[0][0]['value'],
-            d3.select("#mu")._groups[0][0]['value'],
-            d3.select("#sigma")._groups[0][0]['value']
-        )
-    })
+      //d3.selectAll(".rngSlider").on("input",function(d){
+        //BarChart(svg,
+          //  d3.select("#bins")._groups[0][0]['value'],
+            //d3.select("#mu")._groups[0][0]['value'],
+            //d3.select("#sigma")._groups[0][0]['value']
+        //)
+     //})
+    
+     <div class="slidecontainer">
+     <input type="range" min="1" max="100" value="50" class="slider" id="myRange"></input>
+    </div>
+
     </script>
   </body>
 </html>
