@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>joint plot</title>
-
+    <title>Penguin plot</title>
+    <!--Link the barplot and scatter plot to HTML file-->
     <script src="scatterplot.js?2"></script>
     <script src="barplot.js?2"></script>
 
@@ -16,7 +16,7 @@
         border: 1px solid #d2bcbc;
         border-collapse: collapse;
       }
-      td {
+      td { 
         border: 1px solid #d2bcbc;
         border-collapse: collapse;
         padding: 10px;
@@ -163,7 +163,7 @@
         let spec = d3.map(data, function (d) {
           return d.species;
         });
-        let spec_t = new Set(spec);
+        let spec_t = new Set(spec); //Subsetting the data basis the species
         const iS = [...spec_t];
         var a1 = [];
         var a2 = [];
@@ -215,7 +215,7 @@
           return +d.flipper_length_mm;
         });
 
-        let iL = ["Torgersen", "Biscoe", "Dream"];
+        let iL = ["Torgersen", "Biscoe", "Dream"]; //Subsetting the islands
 
         let island_code = d3.map(dict[iS[0]], function (d) {
           island = d.island;
@@ -229,7 +229,7 @@
         });
 
         // main svg
-        scatter_plot(
+        scatterplot(
           cd1,
           cl1,
           fl1,
@@ -240,10 +240,10 @@
           (yLabel = "culmen_length_mm")
         );
         //#############
-        bar_plot(cd1, 10, "top1");
-        h_bar_plot(cl1, 10, "right1");
+        barplot(cd1, 10, "top1");
+        h_barplot(cl1, 10, "right1");
 
-        scatter_plot(
+        scatterplot(
           cd2,
           cl2,
           fl2,
@@ -257,7 +257,7 @@
         barplot(cd2, 10, "top2");
         h_barplot(cl2, 10, "right2");
 
-        scatter_plot(
+        scatterplot(
           cd3,
           cl3,
           fl3,
@@ -271,6 +271,15 @@
         barplot(cd3, 10, "top3");
         h_barplot(cl3, 10, "right3");
       }
+
+      /// control
+      d3.selectAll(".rngSlider").on("input",function(d){
+        BarChart(svg,
+            d3.select("#bins")._groups[0][0]['value'],
+            d3.select("#mu")._groups[0][0]['value'],
+            d3.select("#sigma")._groups[0][0]['value']
+        )
+    })
     </script>
   </body>
 </html>
