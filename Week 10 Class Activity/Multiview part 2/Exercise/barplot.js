@@ -57,7 +57,6 @@ function(d) {
 
 }
 
-
 function h_barplot(Values, //column values to make histogram of
     bins_count=10, // number of the bins desired
     axis_key, // id of the svg

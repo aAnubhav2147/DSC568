@@ -53,8 +53,6 @@ axis.append("g")
 .attr("text-anchor","middle")
 .text(yLabel)
 
-
-
 // Title
 axis.append('text')
 .attr('x',500)
