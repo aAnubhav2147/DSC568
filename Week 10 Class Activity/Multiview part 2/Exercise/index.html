@@ -6,9 +6,34 @@
     <!--Link the barplot and scatter plot to HTML file-->
     <script src="scatterplot.js?2"></script>
     <script src="barplot.js?2"></script>
-    <script src="slider.css"></script>
+    <!--<script src="slider.css"></script> -->
 
     <link rel="stylesheet" href="../styles/style.css" />
+
+    <!-- Toogle button -->
+    
+    <!-- <link rel = "stylesheet" href = "C:/Users/anubh/Desktop/Course Requisites/Fall 2021/DSC 530/DSC568/Week 10 Class Activity/Multiview part 2/Exercise/bootstrap-toggle-master/bootstrap-toggle-master/css/bootstrap-toggle.css"/>
+    <link rel = "stylesheet" href = "C:/Users/anubh/Desktop/Course Requisites/Fall 2021/DSC 530/DSC568/Week 10 Class Activity/Multiview part 2/Exercise/bootstrap-toggle-master/bootstrap-toggle-master/css/bootstrap2-toggle.css"/>
+    <link rel = "stylesheet" href = "C:/Users/anubh/Desktop/Course Requisites/Fall 2021/DSC 530/DSC568/Week 10 Class Activity/Multiview part 2/Exercise/bootstrap-toggle-master/bootstrap-toggle-master/css/bootstrap-toggle.min.css"/>
+    <link rel = "stylesheet" href = "C:/Users/anubh/Desktop/Course Requisites/Fall 2021/DSC 530/DSC568/Week 10 Class Activity/Multiview part 2/Exercise/bootstrap-toggle-master/bootstrap-toggle-master/css/bootstrap2-toggle.min.css"/> -->
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <style>
       .fig {
         fill: #faf8f8;
@@ -17,40 +42,80 @@
         border: 1px solid #d2bcbc;
         border-collapse: collapse;
       }
-      td { 
+      td {
         border: 1px solid #d2bcbc;
         border-collapse: collapse;
         padding: 10px;
         width: 10vw;
       }
+
+      .hidden {
+
+display: none;
+
+}
     </style>
     <script src="../lib/d3.js"></script>
   </head>
-  <body style="display: flex; flex-direction: row; padding: 20px">
-    <table style="margin: 5px" id="table1">
+
+
+<div>
+
+  <h4>press button to continue</h4>
+</div>
+
+
+ 
+
+
+    <div class="d-grid gap-2" >
+    
+      <button  onClick="tgtb1()" class="btn btn-primary" type="button" style="width: 800px;position:absolute;padding-left: 80px;padding-right: 80px;">Graph of Anubhav</button>
+      <!-- <button class="btn btn-primary" type="button">Button</button> -->
+    </div>
+  <!-- <button onClick="tgtb1()">Open Graph1</button> -->
+
+
+
+<div id = "main">
+
+  <body style="display: flex; flex-direction: row; padding: 20px ;">
+
+    <table style="margin: 5px" id="table1" class="hidden">
       <tr>
+        
         <td><svg width="550px" height="150px" id="top1"></svg></td>
         <td width="10%">&nbsp</td>
+        
       </tr>
       <tr>
         <td>
+
+
+          <svg id="dataviz1" style = "margin-left:250px;margin-top:-120px" height=200 width=300> </svg>
+
+
           <svg
             width="550px"
             height="500px"
             viewBox="0 0 1100 1000"
             id="main1"
           ></svg>
+          
         </td>
         <td><svg width="150px" height="500px" id="right1"></svg></td>
       </tr>
     </table>
-    <table style="margin: 5px; width: 600px" id="table2">
+    <table style="margin: 5px; width: 600px" id="table2" class="hidden">
       <tr>
         <td><svg width="550px" height="150px" id="top2"></svg></td>
         <td width="10%">&nbsp</td>
       </tr>
       <tr>
         <td>
+
+          <svg id="dataviz" style = "margin-left:250px;margin-top:-120px" height=200 width=300> </svg>
+
           <svg
             width="550px"
             height="500px"
@@ -61,13 +126,16 @@
         <td><svg width="150px" height="500px" id="right2"></svg></td>
       </tr>
     </table>
-    <table style="margin: 5px; width: 600px" id="table3">
+    <table style="margin: 5px; width: 600px" id="table3" class="hidden">
       <tr>
         <td><svg width="550px" height="150px" id="top3"></svg></td>
         <td width="10%">&nbsp</td>
       </tr>
       <tr>
         <td>
+
+          <svg id="dataviz2" style = "margin-left:250px;margin-top:-120px" height=200 width=300> </svg>
+
           <svg
             width="550px"
             height="500px"
@@ -92,15 +160,16 @@
         .attr("width", "100%")
         .attr("height", "100%");
       // top svg 1
-      let fig1_top = d3
+      let svg_top1 = d3
         .select("#top1")
         .append("g")
         .append("rect")
         .attr("class", "fig")
         .attr("width", "100%")
         .attr("height", "100%");
+
       // right svg 1
-      let fig1_right = d3
+      let svg_right1 = d3
         .select("#right1")
         .append("g")
         .append("rect")
@@ -110,23 +179,25 @@
 
       // Subplots 2
 
-      let fig2_main = d3
+      let svg_main2 = d3
         .select("#main2")
         .append("g")
         .append("rect")
         .attr("class", "fig")
         .attr("width", "100%")
         .attr("height", "100%");
+
       // top svg 2
-      let fig2_top = d3
+      let svg_top2 = d3
         .select("#top2")
         .append("g")
         .append("rect")
         .attr("class", "fig")
         .attr("width", "100%")
         .attr("height", "100%");
+
       // right svg 2
-      let fig2_right = d3
+      let svg_right2 = d3
         .select("#right2")
         .append("g")
         .append("rect")
@@ -136,7 +207,7 @@
 
       // Subplots 3
 
-      let fig3_main = d3
+      let svg_main3 = d3
         .select("#main3")
         .append("g")
         .append("rect")
@@ -144,7 +215,7 @@
         .attr("width", "100%")
         .attr("height", "100%");
       // top svg 3
-      let fig3_top = d3
+      let svg_top3 = d3
         .select("#top3")
         .append("g")
         .append("rect")
@@ -152,7 +223,7 @@
         .attr("width", "100%")
         .attr("height", "100%");
       // right svg 3
-      let fig3_right = d3
+      let svg_right3 = d3
         .select("#right3")
         .append("g")
         .append("rect")
@@ -164,61 +235,65 @@
         let spec = d3.map(data, function (d) {
           return d.species;
         });
-        let spec_t = new Set(spec); //Subsetting the data basis the species
-        const iS = [...spec_t];
-        var a1 = [];
-        var a2 = [];
-        var a3 = [];
+
+        let spec_t = new Set(spec);
+        const p_specie = [...spec_t];
+
+        var first = [];
+        var second = [];
+        var third = [];
 
         data.map((element) => {
-          if (element.species === iS[0]) {
-            a1.push(element);
-          } else if (element.species === iS[1]) {
-            a2.push(element);
-          } else if (element.species === iS[2]) {
-            a3.push(element);
+          if (element.species === p_specie[0]) {
+            first.push(element);
+          } else if (element.species === p_specie[1]) {
+            second.push(element);
+          } else if (element.species === p_specie[2]) {
+            third.push(element);
           }
         });
 
-        var dict = {};
-        dict[iS[0]] = a1;
-        dict[iS[1]] = a2;
-        dict[iS[2]] = a3;
+        // Fixing graph positions on the basis of subsetted species
+
+        var dictIsland = {};
+        dictIsland[p_specie[0]] = first;
+        dictIsland[p_specie[1]] = second;
+        dictIsland[p_specie[2]] = third;
 
         // fetch data from table
-        let cl1 = d3.map(dict[iS[0]], function (d) {
+        let y1 = d3.map(dictIsland[p_specie[0]], function (d) {
           return +d.culmen_length_mm;
         });
-        let cd1 = d3.map(dict[iS[0]], function (d) {
+        let x1 = d3.map(dictIsland[p_specie[0]], function (d) {
           return +d.culmen_depth_mm;
         });
-        let fl1 = d3.map(dict[iS[0]], function (d) {
+        let xy1 = d3.map(dictIsland[p_specie[0]], function (d) {
           return +d.flipper_length_mm;
         });
 
-        let cl2 = d3.map(dict[iS[1]], function (d) {
+        let y2 = d3.map(dictIsland[p_specie[1]], function (d) {
           return +d.culmen_length_mm;
         });
-        let cd2 = d3.map(dict[iS[1]], function (d) {
+        let x2 = d3.map(dictIsland[p_specie[1]], function (d) {
           return +d.culmen_depth_mm;
         });
-        let fl2 = d3.map(dict[iS[1]], function (d) {
+        let xy2 = d3.map(dictIsland[p_specie[1]], function (d) {
           return +d.flipper_length_mm;
         });
 
-        let cl3 = d3.map(dict[iS[2]], function (d) {
+        let y3 = d3.map(dictIsland[p_specie[2]], function (d) {
           return +d.culmen_length_mm;
         });
-        let cd3 = d3.map(dict[iS[2]], function (d) {
+        let x3 = d3.map(dictIsland[p_specie[2]], function (d) {
           return +d.culmen_depth_mm;
         });
-        let fl3 = d3.map(dict[iS[2]], function (d) {
+        let xy3 = d3.map(dictIsland[p_specie[2]], function (d) {
           return +d.flipper_length_mm;
         });
 
-        let iL = ["Torgersen", "Biscoe", "Dream"]; //Subsetting the islands
+       // let iL = ["Torgersen", "Biscoe", "Dream"];
 
-        let island_code = d3.map(dict[iS[0]], function (d) {
+        let island_code = d3.map(dictIsland[p_specie[0]], function (d) {
           island = d.island;
           if (island === "Torgersen") {
             return 0;
@@ -231,9 +306,9 @@
 
         // main svg
         scatterplot(
-          cd1,
-          cl1,
-          fl1,
+          x1,
+          y1,
+          xy1,
           island_code,
           "main1",
           (title = "Penguin Species"),
@@ -241,13 +316,13 @@
           (yLabel = "culmen_length_mm")
         );
         //#############
-        barplot(cd1, 10, "top1");
-        h_barplot(cl1, 10, "right1");
+        barplot(x1, 10, "top1");
+        h_barplot(y1, 10, "right1");
 
         scatterplot(
-          cd2,
-          cl2,
-          fl2,
+          x2,
+          y2,
+          xy2,
           island_code,
           "main2",
           (title = "Penguin Species"),
@@ -255,13 +330,13 @@
           (yLabel = "culmen_length_mm")
         );
         //#############
-        barplot(cd2, 10, "top2");
-        h_barplot(cl2, 10, "right2");
+        barplot(x2, 10, "top2");
+        h_barplot(y2, 10, "right2");
 
         scatterplot(
-          cd3,
-          cl3,
-          fl3,
+          x3,
+          y3,
+          xy3,
           island_code,
           "main3",
           (title = "Penguin Species"),
@@ -269,23 +344,63 @@
           (yLabel = "culmen_length_mm")
         );
         //#############
-        barplot(cd3, 10, "top3");
-        h_barplot(cl3, 10, "right3");
+        barplot(x3, 10, "top3");
+        h_barplot(y3, 10, "right3");
       }
 
-      /// control
-      //d3.selectAll(".rngSlider").on("input",function(d){
-        //BarChart(svg,
-          //  d3.select("#bins")._groups[0][0]['value'],
-            //d3.select("#mu")._groups[0][0]['value'],
-            //d3.select("#sigma")._groups[0][0]['value']
-        //)
-     //})
-    
-     <div class="slidecontainer">
-     <input type="range" min="1" max="100" value="50" class="slider" id="myRange"></input>
-    </div>
+function tgtb1() {
 
-    </script>
-  </body>
+document.getElementById("table1").classList.toggle("hidden");
+document.getElementById("table2").classList.toggle("hidden");
+document.getElementById("table3").classList.toggle("hidden");
+
+
+}
+
+function tgtb2() {
+
+document.getElementById("table2").classList.toggle("hidden");
+
+}
+function tgtb3() {
+
+document.getElementById("table3").classList.toggle("hidden");
+
+}
+
+var svg = d3.select("#dataviz")
+
+// legend1
+svg.append("circle").attr("cx",200).attr("cy",130).attr("r", 5).style("fill", "#4682b4")
+svg.append("circle").attr("cx",200).attr("cy",150).attr("r", 5).style("fill", "#76566f")
+svg.append("circle").attr("cx",200).attr("cy",170).attr("r", 5).style("fill", "#a52a2a")
+svg.append("text").attr("x", 220).attr("y", 130).text("Torgersen").style("font-size", "15px").style("fill", "#4682b4").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 220).attr("y", 150).text("Biscoe").style("font-size", "15px").style("fill", "#76566f").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 220).attr("y", 170).text("Dream").style("font-size", "15px").style("fill", "#a52a2a").attr("alignment-baseline","middle")
+
+var svg = d3.select("#dataviz1")
+
+// legend2
+svg.append("circle").attr("cx",200).attr("cy",130).attr("r", 5).style("fill", "#4682b4")
+svg.append("circle").attr("cx",200).attr("cy",150).attr("r", 5).style("fill", "#76566f")
+svg.append("circle").attr("cx",200).attr("cy",170).attr("r", 5).style("fill", "#a52a2a")
+svg.append("text").attr("x", 220).attr("y", 130).text("Torgersen").style("font-size", "15px").style("fill", "#4682b4").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 220).attr("y", 150).text("Biscoe").style("font-size", "15px").style("fill", "#76566f").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 220).attr("y", 170).text("Dream").style("font-size", "15px").style("fill", "#a52a2a").attr("alignment-baseline","middle")
+
+var svg = d3.select("#dataviz2")
+
+// legend3
+svg.append("circle").attr("cx",200).attr("cy",130).attr("r", 5).style("fill", "#4682b4")
+svg.append("circle").attr("cx",200).attr("cy",150).attr("r", 5).style("fill", "#76566f")
+svg.append("circle").attr("cx",200).attr("cy",170).attr("r", 5).style("fill", "#a52a2a")
+svg.append("text").attr("x", 220).attr("y", 130).text("Torgersen").style("font-size", "15px").style("fill", "#4682b4").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 220).attr("y", 150).text("Biscoe").style("font-size", "15px").style("fill", "#76566f").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 220).attr("y", 170).text("Dream").style("font-size", "15px").style("fill", "#a52a2a").attr("alignment-baseline","middle")
+
+
+</script>
+
+</div>
+</body>
 </html>
