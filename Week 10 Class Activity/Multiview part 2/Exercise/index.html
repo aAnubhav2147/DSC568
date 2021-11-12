@@ -63,10 +63,6 @@ display: none;
   <h4>press button to continue</h4>
 </div>
 
-
- 
-
-
     <div class="d-grid gap-2" >
     
       <button  onClick="tgtb1()" class="btn btn-primary" type="button" style="width: 800px;position:absolute;padding-left: 80px;padding-right: 80px;">Graph of Anubhav</button>
@@ -396,6 +392,41 @@ svg.append("circle").attr("cx",200).attr("cy",170).attr("r", 5).style("fill", "#
 svg.append("text").attr("x", 220).attr("y", 130).text("Torgersen").style("font-size", "15px").style("fill", "#4682b4").attr("alignment-baseline","middle")
 svg.append("text").attr("x", 220).attr("y", 150).text("Biscoe").style("font-size", "15px").style("fill", "#76566f").attr("alignment-baseline","middle")
 svg.append("text").attr("x", 220).attr("y", 170).text("Dream").style("font-size", "15px").style("fill", "#a52a2a").attr("alignment-baseline","middle")
+
+// D3. brush attempt
+// Draw a circle
+// var myCircle = d3.select("#dataviz_brushChange")
+//   .append("g")
+//   .append("circle")
+//     .attr("cx", 150)
+//     .attr("cy", 150)
+//     .attr("r", 40)
+//     .attr("fill", "#69a3b2")
+
+// // Add brushing
+// d3.select("#dataviz_brushChange")
+//       .call( d3.brush()                 // Add the brush feature using the d3.brush function
+//         .extent( [ [0,0], [300,400] ] ) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+//         .on("start end", updateChart) // Each time the brush selection changes, trigger the 'updateChart' function
+//       )
+
+// // Function that is triggered when brushing is performed
+// function updateChart() {
+
+//   // Get the selection coordinate
+//   extent = d3.event.selection   // looks like [ [12,11], [132,178]]
+
+//   // Is the circle in the selection?
+//   isBrushed = extent[0][0] <= myCircle.attr("cx") && extent[1][0] >= myCircle.attr("cx") && // Check X coordinate
+//               extent[0][1] <= myCircle.attr("cy") && extent[1][1] >= myCircle.attr("cy")  // And Y coordinate
+
+//   // Circle is green if in the selection, pink otherwise
+//   if (isBrushed){
+//     myCircle.transition().duration(200).style("fill", "green")
+//   }else{
+//     myCircle.transition().duration(200).style("fill", "pink")
+//   }
+// }
 
 
 </script>
